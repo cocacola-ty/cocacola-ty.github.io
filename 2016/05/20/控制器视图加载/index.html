@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="bbbb">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="TY">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="控制器视图加载"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="bbbb" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Dev_Ty&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://yoursite.comundefined"/>
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>控制器视图加载 - Dev_Ty&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TY's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cocacola-ty">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>控制器视图加载</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-20
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="视图的storyboard与xib加载"><a href="#视图的storyboard与xib加载" class="headerlink" title="视图的storyboard与xib加载"></a>视图的storyboard与xib加载</h2><h3 id="通过storyboard加载"><a href="#通过storyboard加载" class="headerlink" title="通过storyboard加载"></a>通过storyboard加载</h3><p>控制器通过storyboard加载时，需要制定storyboard的名称，控制器view就是storyboard显示的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@&quot;TestViewController&quot; bundle:nil];</span><br><span class="line"></span><br><span class="line">TestViewController *testVC = [storyboard instantiateInitialViewController];</span><br></pre></td></tr></table></figure>
+<h3 id="通过xib加载-未重写loadView方法情况下"><a href="#通过xib加载-未重写loadView方法情况下" class="headerlink" title="通过xib加载 (未重写loadView方法情况下)"></a>通过xib加载 (未重写loadView方法情况下)</h3><ul>
+<li>指定xib名称</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">TestViewController *testVC = [[TestViewController alloc] initWithNibName:@&quot;OtherViewController&quot; bundle:nil];</span><br></pre></td></tr></table></figure>
+<p>指定了xib名称的情况下，loadView方法会去加载对应的xib，显示出的结果就是xib的视图情况</p>
+<ul>
+<li><p>不指定xib名称</p>
+<ol>
+<li><p>不指定xib名称，存在与控制器同名的xib(TestViewController.xib),loadView默认就会去寻找与控制器同名的xib然后加载。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">TestViewController *testVC = [[TestViewController alloc] init];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不指定xib名称，不存在与控制器同名的xib(TestViewController.xib),存在与控制器同名但不带controller的xib(TestView.xib)</p>
+<p>当项目中没有与控制器同名的xib时，loadView会寻找与控制器同名但不带controller的xib(TestView.xib)</p>
+</li>
+<li><p>当项目中既没有与控制器同名的xib，也没有与控制器同名去掉controller的xib时，loadView会创建一个view，颜色为clearColor，显示出来为黑色的view，黑色是UIWindow</p>
+</li>
+<li><p>重写loadView方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)loadView &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种情况下显示效果和上面是一样的，但是这次并没有创建view</p>
+<p>如果希望控制器视图默认加载出来的不是UIView而是其他控件，可以通过重写loadView</p>
+</li>
+</ol>
+</li>
+<li><h4 id="重写loadView方法"><a href="#重写loadView方法" class="headerlink" title="重写loadView方法"></a>重写loadView方法</h4></li>
+</ul>
+<p>如果重写loadView方法，视图会按照loadView方法中的设置进行显示，不会去进行默认的处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// TestViewController.m</span><br><span class="line"></span><br><span class="line">- (void) loadView &#123;</span><br><span class="line"></span><br><span class="line">    self.view = [[UIView alloc] init];</span><br><span class="line"></span><br><span class="line">    self.view.backgroundColor = [UIColor yellowColor];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种情况下 即使通过[[TestViewController alloc] initWithNibName:@”TestViewController” bundle:nil]; 返回的也是一个黄色背景的视图。因为当进入loadView方法后获取的视图为黄色背景视图然后方法结束，不会再去获取TestViewController.xib视图</p>
+<p>__当要显示视图时，无论是加载xib还是加载storyboard，都是通过loadView去获取视图，若重写了loadView方法，则直接按loadView方法设置的进行获取。</p>
+<p>当没有重写loadView时才会按照系统默认的方法去依次寻找相应的xib等__</p>
+<h3 id="end"><a href="#end" class="headerlink" title="end"></a>end</h3><ol>
+<li><p>重写loadView方法，会根据重写的loadView去创建view</p>
+</li>
+<li><p>控制器通过storyboard加载，则根据storyboard创建视图</p>
+</li>
+<li><p>控制器view通过xib加载，则根据nibName对应的xib创建view</p>
+</li>
+<li><p>没有指定nibName，则根据与控制器同名的xib创建视图</p>
+</li>
+<li><p>没有同名的xib，则根据与控制器名前缀相同而不带controller的xib创建view</p>
+</li>
+<li><p>都没有，创建一个空白的xib</p>
+</li>
+</ol>
+<h3 id="视图加载流程"><a href="#视图加载流程" class="headerlink" title="视图加载流程"></a>视图加载流程</h3><ol>
+<li><p>调用alloc init </p>
+</li>
+<li><p>去访问loadView方法，</p>
+</li>
+</ol>
+<h3 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h3><p>storyboard加载的是控制器及控制器的视图</p>
+<p>xib加载的仅仅是控制器的view</p>
+<h4 id="TestView-xib的一点注意"><a href="#TestView-xib的一点注意" class="headerlink" title="TestView.xib的一点注意"></a>TestView.xib的一点注意</h4><p>如果我们创建一个与控制器同名但没有controller的xib(如 TestView.xib),并且项目中没有TestViewController.xib也没有重写loadView方法，此时loadView默认是去加载TestView.xib视图的。</p>
+<p><em>但是我们需要指定TestView.xib的File’s Owner为TestViewController,并且将File’s Owner关联到xib的view，即在File’s Owner右键，将其view属性连接到xib的view</em></p>
+<h2 id="控制器生命周期"><a href="#控制器生命周期" class="headerlink" title="控制器生命周期"></a>控制器生命周期</h2><ol>
+<li><p>viewDidLoad</p>
+</li>
+<li><p>viewWillAppear</p>
+</li>
+<li><p>viewWillLayoutSubviews</p>
+</li>
+<li><p>viewDidLayoutSubviews</p>
+</li>
+<li><p>viewDidAppear</p>
+</li>
+<li><p>viewWillDisappear</p>
+</li>
+<li><p>viewDidDisappear</p>
+</li>
+</ol>
+<p>File’s Owner 只能是控制器</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cocacola-ty" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>

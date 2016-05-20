@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="bbbb">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="TY">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS视图优化"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="bbbb" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Dev_Ty&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://yoursite.comundefined"/>
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS视图优化 - Dev_Ty&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TY's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cocacola-ty">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>iOS视图优化</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-20
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="可能会需要优化的点"><a href="#可能会需要优化的点" class="headerlink" title="可能会需要优化的点"></a>可能会需要优化的点</h2><ul>
+<li><p>Color Blended Layers</p>
+</li>
+<li><p>Color Copied Images</p>
+</li>
+<li><p>Color Misaligned Images</p>
+</li>
+<li><p>Color Offscreen-Rendered</p>
+</li>
+</ul>
+<h3 id="Color-Blender-Layers-混合图层"><a href="#Color-Blender-Layers-混合图层" class="headerlink" title="Color Blender Layers 混合图层"></a>Color Blender Layers 混合图层</h3><p>当view设置alpha值时会导致出现混合图层情况。混合图层也就是我们看到的穿透效果。</p>
+<p>混合图层会导致性能降低是因为，屏幕上每个像素点的颜色值是由当前像素点位置上的多层layer的颜色值共同决定。GPU会计算混合颜色的RGB值，然后显示在屏幕上。混合颜色值需要由GPU进行计算，从而导致性能降低。</p>
+<p>为避免这一情况我们应该避免设置alpha值，这样GPU就会忽略下面所有的layer，不去计算混合值。可以通过设置layer.opaque=YES 来达到想要的效果</p>
+<p>opaque这个属性给渲染系统提供了一个如何处理这个view的提示，如果设为YES，渲染系统就认为这个view是完全不透明的，如果设置为NO，渲染系统就正常地和其他内容组成这个view</p>
+<h3 id="Color-Off-screen-Rendered-离屏渲染"><a href="#Color-Off-screen-Rendered-离屏渲染" class="headerlink" title="Color Off-screen Rendered 离屏渲染"></a>Color Off-screen Rendered 离屏渲染</h3><p>GPU渲染方式：</p>
+<ol>
+<li>On-Screen Render</li>
+</ol>
+<p>当前屏幕渲染，GPU渲染操作在用于显示当前屏幕内容的屏幕缓冲区中进行渲染操作</p>
+<ol>
+<li>Off-Screen Render</li>
+</ol>
+<p>离屏渲染，指GPU渲染操作在显示当前屏幕缓冲区之外，去内存中新开辟一个缓冲区来进行渲染操作</p>
+<ol>
+<li>特殊的离屏渲染</li>
+</ol>
+<p>CPU渲染，如果重写了drawRect方法，并且使用Core Graphics技术进行了绘制，整个渲染过程由CPU在APP内同步完成。CPU渲染完成得到bitmap再去交给GPU去显示</p>
+<p>离屏渲染的消耗</p>
+<ol>
+<li>创建新的缓冲区</li>
+</ol>
+<p>要进行离屏渲染，要在当前屏幕缓冲区之外再新开一个缓冲区。</p>
+<ol>
+<li>上下文切换</li>
+</ol>
+<p>离屏渲染的过程：先从当前屏幕(On-Screen)切换到离屏(Off-Screen);在离屏缓冲区中渲染结束之后，将离屏缓冲区的渲染结果交给当前屏幕则需要将上下文环境由离屏切换到当前屏幕。上下文环境的切换的消耗是很大的。</p>
+<p>触发离屏绘制的行为：</p>
+<ul>
+<li><p>shouldRasterize 光栅化</p>
+</li>
+<li><p>masks 遮罩</p>
+</li>
+<li><p>shadows 阴影</p>
+</li>
+<li><p>edge antialiasing 抗锯齿</p>
+</li>
+<li><p>group opacity 不透明</p>
+</li>
+</ul>
+<p><em>注：如果shouldRasterize设置为YES，在离屏绘制的同时，还会将光栅化后的内容进行缓存，如果该layer及其sublayers内容没有改变，在下一帧时可以直接复用，提升渲染性能。对于经常变动的内容不要开启，如tableview的cell。</em></p>
+<p><em>而其他的属性如果开启的话不会有缓存，每一帧都会进行离屏绘制</em></p>
+<p>iOS9.0之前UIImageView和UIButton设置圆角都会触发离屏渲染</p>
+<p>iOS9.0之后UIButton设置圆角会触发离屏渲染，而ImageView的png图片设置圆角不会触发离屏渲染了。</p>
+<h3 id="Color-Copied-Images"><a href="#Color-Copied-Images" class="headerlink" title="Color Copied Images"></a>Color Copied Images</h3><blockquote>
+<p>“If an image is in a color format that the GPU can not directly work with, it will be converted in the CPU”</p>
+</blockquote>
+<p>苹果的GPU只解析32bit的颜色格式，如果颜色格式不是32bit，就会先由CPU进行转换，再去交给GPU渲染，所以，如果可以要设计出32bit的图</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cocacola-ty" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>

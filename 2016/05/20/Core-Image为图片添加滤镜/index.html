@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="bbbb">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="TY">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Core Image为图片添加滤镜"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="bbbb" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Dev_Ty&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://yoursite.comundefined"/>
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Core Image为图片添加滤镜 - Dev_Ty&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TY's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cocacola-ty">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Core Image为图片添加滤镜</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-20
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h3><ol>
+<li><p>读取图片</p>
+<ol>
+<li>读取UIImage类型图片</li>
+</ol>
+</li>
+</ol>
+<pre><code>2. 将UIImage转为NSData
+
+
+
+3. 根据NSData转为CIImage
+</code></pre><ol>
+<li>处理滤镜</li>
+</ol>
+<pre><code>1. 创建滤镜。根据滤镜名称初始化一个滤镜
+
+
+
+2. 设置滤镜参数
+
+
+
+3. 设置滤镜图片输入源，即设置滤镜的inputImage参数
+</code></pre><ol>
+<li>处理进行过滤镜的图片</li>
+</ol>
+<pre><code>1. 获取CIContext，通过该对象将滤镜的输出图像进行处理
+
+
+
+2. 通过CIContext对象获取滤镜的输出对象并将图像转换为CGImage
+
+
+
+3. 将CGImage转换为UIImage
+</code></pre><h3 id="主要类"><a href="#主要类" class="headerlink" title="主要类"></a>主要类</h3><ul>
+<li>CIContext: Core Image处理上下文，图像处理在该类完成</li>
+</ul>
+<ul>
+<li>CIFilter：滤镜类，定义各种滤镜的属性。各种滤镜都属于该类</li>
+</ul>
+<ul>
+<li>CIImage：保存图像数据</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    /******读取图片部分******/</span><br><span class="line"></span><br><span class="line">// 读取图片</span><br><span class="line">NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;2&quot; ofType:@&quot;jpg&quot;];</span><br><span class="line">UIImage *image = [UIImage imageWithContentsOfFile:path];</span><br><span class="line"></span><br><span class="line">// 将UIImage转CIImage</span><br><span class="line">NSData *data = UIImagePNGRepresentation(image);</span><br><span class="line">CIImage *inputImage = [CIImage imageWithData:data];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/******处理滤镜部分******/</span><br><span class="line">// 初始化进行滤镜的颜色</span><br><span class="line">CIColor *sepiaColor = [CIColor colorWithRed:0.76 green:0.65 blue:0.54];</span><br><span class="line"></span><br><span class="line">// 通过滤镜名称创建滤镜 初始化滤镜参数</span><br><span class="line">CIFilter *monochromeFilter = [CIFilter filterWithName:@&quot;CIColorMonochrome&quot; withInputParameters:@&#123;@&quot;inputColor&quot;:sepiaColor,@&quot;inputIntensity&quot;:@1.0&#125;];</span><br><span class="line">// 设置滤镜的输入图像</span><br><span class="line">[monochromeFilter setValue:inputImage forKey:@&quot;inputImage&quot;];</span><br><span class="line"></span><br><span class="line">// 根据滤镜名称创建滤镜 初始化滤镜基本参数</span><br><span class="line">CIFilter *vinFilter = [CIFilter filterWithName:@&quot;CIVignette&quot; withInputParameters:@&#123;@&quot;inputRadius&quot;:@1.75,@&quot;inputIntensity&quot;:@1.0&#125;];</span><br><span class="line">// 以经过上一个滤镜处理的图像作为本次滤镜的输入图像</span><br><span class="line">[vinFilter setValue:monochromeFilter.outputImage forKey:@&quot;inputImage&quot;];</span><br><span class="line"></span><br><span class="line">// 获取经过两次滤镜的图像</span><br><span class="line">CIImage *outputImage = vinFilter.outputImage;</span><br><span class="line"></span><br><span class="line">// 创建高斯模糊滤镜</span><br><span class="line">CIFilter *blur = [CIFilter filterWithName:@&quot;CIGaussianBlur&quot; withInputParameters:@&#123;@&quot;inputRadius&quot;:@40&#125;];</span><br><span class="line">[blur setValue:inputImage forKey:@&quot;inputImage&quot;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/******处理滤镜之后图片部分******/</span><br><span class="line">// 将CIImage转换为CGImage 再转为UIImage</span><br><span class="line">CIContext *context = [CIContext contextWithOptions:nil];</span><br><span class="line">struct CGImage *cgImage = [context createCGImage:blur.outputImage fromRect:inputImage.extent];</span><br><span class="line"></span><br><span class="line">UIImage *outputUIImage = [UIImage imageWithCGImage:cgImage];</span><br><span class="line"></span><br><span class="line">// 显示处理后的图片</span><br><span class="line">UIImageView *imgView = [[UIImageView alloc] init];</span><br><span class="line">imgView.frame = CGRectMake(40, 40, 200, 200);</span><br><span class="line">imgView.image = outputUIImage ;</span><br><span class="line">[self.view addSubview:imgView];</span><br></pre></td></tr></table></figure>
+<h3 id="获取可用的滤镜列表"><a href="#获取可用的滤镜列表" class="headerlink" title="获取可用的滤镜列表"></a>获取可用的滤镜列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 所有可用的滤镜</span><br><span class="line">  NSLog(@&quot;可用的滤镜\n%@&quot;,[CIFilter filterNamesInCategory:kCICategoryBuiltIn])</span><br></pre></td></tr></table></figure>
+<h3 id="获取滤镜的属性"><a href="#获取滤镜的属性" class="headerlink" title="获取滤镜的属性"></a>获取滤镜的属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    // 滤镜的属性</span><br><span class="line">    NSLog(@&quot;%@&quot;,blurFilter.attributes)</span><br><span class="line"></span><br><span class="line">// 输出结果为：</span><br><span class="line">&#123;</span><br><span class="line">    &quot;CIAttributeFilterAvailable_Mac&quot; = &quot;10.4&quot;;</span><br><span class="line">    &quot;CIAttributeFilterAvailable_iOS&quot; = 6;</span><br><span class="line">    CIAttributeFilterCategories =     (</span><br><span class="line">        CICategoryBlur,</span><br><span class="line">        CICategoryStillImage,</span><br><span class="line">        CICategoryVideo,</span><br><span class="line">        CICategoryBuiltIn</span><br><span class="line">    );</span><br><span class="line">    CIAttributeFilterDisplayName = &quot;Gaussian Blur&quot;;</span><br><span class="line">    CIAttributeFilterName = CIGaussianBlur;</span><br><span class="line">    CIAttributeReferenceDocumentation = &quot;http://developer.apple.com/cgi-bin/apple_ref.cgi?apple_ref=//apple_ref/doc/filter/ci/CIGaussianBlur&quot;;</span><br><span class="line">    inputImage =     &#123;</span><br><span class="line">        CIAttributeClass = CIImage;</span><br><span class="line">        CIAttributeDescription = &quot;The image to use as an input image. For filters that also use a background image, this is the foreground image.&quot;;</span><br><span class="line">        CIAttributeDisplayName = Image;</span><br><span class="line">        CIAttributeType = CIAttributeTypeImage;</span><br><span class="line">    &#125;;</span><br><span class="line">    inputRadius =     &#123;</span><br><span class="line">        CIAttributeClass = NSNumber;</span><br><span class="line">        CIAttributeDefault = 10;</span><br><span class="line">        CIAttributeDescription = &quot;The radius determines how many pixels are used to create the blur. The larger the radius, the blurrier the result.&quot;;</span><br><span class="line">        CIAttributeDisplayName = Radius;</span><br><span class="line">        CIAttributeIdentity = 0;</span><br><span class="line">        CIAttributeMin = 0;</span><br><span class="line">        CIAttributeSliderMax = 100;</span><br><span class="line">        CIAttributeSliderMin = 0;</span><br><span class="line">        CIAttributeType = CIAttributeTypeScalar;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>inputXX即该滤镜的输入参数。(当前滤镜中即inputRadius)</p>
+<p>这样，通过查询滤镜的attributes的inputXX数组我们可以得到滤镜的输入参数来设置滤镜的显示效果</p>
+<h4 id="详细解释输入参数数组"><a href="#详细解释输入参数数组" class="headerlink" title="详细解释输入参数数组"></a>详细解释输入参数数组</h4><ul>
+<li>CIAttributeClass – 该属性接收的类型</li>
+</ul>
+<ul>
+<li>CIAttributeDefault – 该属性的默认值</li>
+</ul>
+<ul>
+<li>CIAttributeDescription – 该属性的描述</li>
+</ul>
+<ul>
+<li>CIAttributeDisplayName – 该属性的名称</li>
+</ul>
+<ul>
+<li>CIAttributeIdentity – 属性标识</li>
+</ul>
+<ul>
+<li>CIAttributeMin – 属性最小值</li>
+</ul>
+<ul>
+<li>CIAttributeSliderMax – 属性最大值</li>
+</ul>
+<ul>
+<li>CIAttributeType – 属性类型</li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cocacola-ty" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>
