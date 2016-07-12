@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="iOS视图优化"/>
+        <meta property="og:title" content="iOS优化技巧"/>
     
 
     <!--Open Graph Description-->
@@ -46,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>iOS视图优化 - Dev_Ty&#39;s Blog</title>
+    <title>iOS优化技巧 - Dev_Ty&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -136,7 +136,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>iOS视图优化</h1>
+                    <h1>iOS优化技巧</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
@@ -162,7 +162,35 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2 id="可能会需要优化的点"><a href="#可能会需要优化的点" class="headerlink" title="可能会需要优化的点"></a>可能会需要优化的点</h2><ul>
+                <h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><ul>
+<li><p>视图复用。比如UITableViewCell、UICollectionViewCell。但是视图复用时要记得将原来的数据清除</p>
+</li>
+<li><p>数据缓存。比如SDWebImage的图片缓存</p>
+</li>
+<li><p>任何情况下都不能堵塞主线程，把耗时操作尽量放到子线程</p>
+</li>
+<li><p>如果有多个下载同时并发，可以控制并发数</p>
+</li>
+<li><p>在合适的地方尽量使用懒加载</p>
+</li>
+<li><p>重用重大开销对象。比如：NSDateFormatter、NSCalendar</p>
+</li>
+<li><p>选择合适的数据存储</p>
+</li>
+<li><p>避免循环引用。避免delegate用retain、strong修饰，block可能导致循环引用，NSTimer也可能导致内存泄露</p>
+</li>
+<li><p>当涉及到定位的时候，不用的时候最好把定位服务关闭。因为定位耗电、流量。</p>
+</li>
+<li><p>加锁对性能有重大开销</p>
+</li>
+<li><p>界面最好不要添加过多的subviews</p>
+</li>
+<li><p>TableView如果不同行高，那么返回行高，最好做缓存</p>
+</li>
+<li><p>viewDidLoad里尽量不要做耗时操作</p>
+</li>
+</ul>
+<h1 id="视图优化"><a href="#视图优化" class="headerlink" title="视图优化"></a>视图优化</h1><h2 id="可能会需要优化的点"><a href="#可能会需要优化的点" class="headerlink" title="可能会需要优化的点"></a>可能会需要优化的点</h2><ul>
 <li><p>Color Blended Layers</p>
 </li>
 <li><p>Color Copied Images</p>

@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Dev_Ty&#39;s Blog"/>
+        <meta property="og:title" content="视图和app的生命周期"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -46,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/7 - Dev_Ty&#39;s Blog</title>
+    <title>视图和app的生命周期 - Dev_Ty&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -128,89 +128,110 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/7</h1>
+                <div class="post-heading">
+                    <h1>视图和app的生命周期</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-07-12
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/07/12/开发Tips/">
-        <h1 class="post-title archive">
-            开发Tips
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-12
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/07/12/iOS下面向切面编程-Method-Swizzle使用/">
-        <h1 class="post-title archive">
-            iOS下面向切面编程-Method Swizzle使用
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-12
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/07/12/视图和app的生命周期/">
-        <h1 class="post-title archive">
-            视图和app的生命周期
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-12
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/07/11/宏与常量以及常量的使用/">
-        <h1 class="post-title archive">
-            宏与常量以及常量的使用
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-07-11
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="视图的生命周期"><a href="#视图的生命周期" class="headerlink" title="视图的生命周期"></a>视图的生命周期</h2><ul>
+<li>视图出现的过程</li>
 </ul>
+<ol>
+<li><p>alloc 分配空间，创建对象</p>
+</li>
+<li><p>init(initWithNIbName) 初始化对象，初始化数据</p>
+</li>
+<li><p>loadView 从nib加载视图，除非没有使用xib创建视图。视图的加载</p>
+</li>
+<li><p>viewDidLoad 视图完成加载，可以进行其他数据的处理，以及动态创建其他控件</p>
+</li>
+<li><p>viewWillAppear 视图即将出现在屏幕上</p>
+</li>
+<li><p>viewWillLayoutSubviews 视图将对子视图进行布局</p>
+</li>
+<li><p>viewDidLayoutSubviews 视图完成对子视图的布局</p>
+</li>
+<li><p>viewDidAppear 视图已经在屏幕上渲染完成，已经显示在屏幕上</p>
+</li>
+</ol>
+<ul>
+<li>视图退出的过程</li>
+</ul>
+<ol>
+<li><p>viewWillDisappear 视图将要从屏幕上移除</p>
+</li>
+<li><p>viewDidDisappear 视图已经从屏幕上移除</p>
+</li>
+<li><p>dealloc 销毁视图，在此需要将在init和viewDidLoad中创建的自定义对象进行释放</p>
+</li>
+</ol>
+<ul>
+<li>两个很少用到的方法</li>
+</ul>
+<ol>
+<li><p>viewWillUnload - 当内存过低，即将释放时调用</p>
+</li>
+<li><p>viewDidUnload - 当内存过低，释放一些不需要的视图时调用</p>
+</li>
+</ol>
+<h2 id="应用程序的生命周期"><a href="#应用程序的生命周期" class="headerlink" title="应用程序的生命周期"></a>应用程序的生命周期</h2><p><strong>1 启动但还没进入状态保存</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions</span><br></pre></td></tr></table></figure>
+<p><strong>2 基本完成程序加载，准备开始运行</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</span><br></pre></td></tr></table></figure>
+<p><strong>3 当应用程序将要进入非活动状态执行，应用程序不接受消息或事件，比如来电话了</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)applicationWillResignActive:(UIApplication *)application</span><br></pre></td></tr></table></figure>
+<p><strong>4 当应用程序进入活动状态时执行，和上面方法相反，上一个事件结束</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)applicationDidBecomeActive:(UIApplication *)application</span><br></pre></td></tr></table></figure>
+<p><strong>5 当程序被推到后台的时候调用。所以如果需要设置保持后台运行，在这个函数中设置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</span><br></pre></td></tr></table></figure>
+<p><strong>6 当程序从后台将要重新回到前台时候调用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)applicationWillEnterForeground:(UIApplication *)application</span><br></pre></td></tr></table></figure>
+<p><strong>7 程序将要退出时被调用，通过是用来保存数据和退出前的一些清理</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)applicationWillTerminate:(UIApplication *)application</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />

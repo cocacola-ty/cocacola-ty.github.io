@@ -188,70 +188,49 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSLog(@&quot;main queue doing&quot;);</span><br><span class="line"></span><br><span class="line">dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</span><br><span class="line">// 并发队列 异步执行</span><br><span class="line">dispatch_async(queue, ^&#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;,[NSThread currentThread]);</span><br><span class="line">        NSLog(@&quot;并发队列异步执行&quot;);</span><br><span class="line">&#125;);</span><br><span class="line">NSLog(@&quot;main queue go on&quot;);</span><br></pre></td></tr></table></figure>
 <ol>
-<li>现在mainQueue中执行第一个nslog。输出main queue doing</li>
-</ol>
-<ol>
-<li>dispatch_async将block中的任务提交到queue队列中，提交之后立即返回，继续向下执行后面的代码。因为queue是一个并行队列，所以提交到该queue的任务会和以前的任务同时执行，queue队列会自己管理是否开启一条新的子线程来执行任务</li>
-</ol>
-<ol>
-<li>main queue 继续执行第二个nslog</li>
+<li><p>现在mainQueue中执行第一个nslog。输出main queue doing</p>
+</li>
+<li><p>dispatch_async将block中的任务提交到queue队列中，提交之后立即返回，继续向下执行后面的代码。因为queue是一个并行队列，所以提交到该queue的任务会和以前的任务同时执行，queue队列会自己管理是否开启一条新的子线程来执行任务</p>
+</li>
+<li><p>main queue 继续执行第二个nslog</p>
+</li>
 </ol>
 <hr>
 <ul>
 <li><h3 id="异步执行，串行队列-将要执行的任务放到一条子线程中同时执行，子线程有其他任务时会等前面的任务执行完成再执行该任务"><a href="#异步执行，串行队列-将要执行的任务放到一条子线程中同时执行，子线程有其他任务时会等前面的任务执行完成再执行该任务" class="headerlink" title="异步执行，串行队列 - 将要执行的任务放到一条子线程中同时执行，子线程有其他任务时会等前面的任务执行完成再执行该任务"></a>异步执行，串行队列 - 将要执行的任务放到一条子线程中同时执行，子线程有其他任务时会等前面的任务执行完成再执行该任务</h3></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSLog(@&quot;main queue doing&quot;);</span><br><span class="line"></span><br><span class="line">dispatch_queue_t squeue = dispatch_queue_create(&quot;serialqueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line">// 串行队列 异步执行</span><br><span class="line">dispatch_async(queue, ^&#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;,[NSThread currentThread]);</span><br><span class="line">        NSLog(@&quot;并发队列异步执行&quot;);</span><br><span class="line">&#125;);</span><br><span class="line">NSLog(@&quot;main queue go on&quot;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>main queue中执行第一个nslog，输出main queue doing</li>
-</ol>
-<ol>
-<li>dispatch_async将block中的任务放到queue中，由queue所在的线程去执行该任务，主线程继续向下执行</li>
-</ol>
+<p>1 main queue中执行第一个nslog，输出main queue doing</p>
+<p>2 dispatch_async将block中的任务放到queue中，由queue所在的线程去执行该任务，主线程继续向下执行</p>
 <pre><code>queue是串行队列，所以放入queue的block任务会等queue中以前的任务完成之后执行
-</code></pre><ol>
-<li>主线程执行第二个nslog</li>
-</ol>
+</code></pre><p>3 主线程执行第二个nslog</p>
 <hr>
 <ul>
 <li><h3 id="同步执行，串行队列"><a href="#同步执行，串行队列" class="headerlink" title="同步执行，串行队列"></a>同步执行，串行队列</h3></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">NSLog(@&quot;main queue doing&quot;);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t squeue = dispatch_queue_create(&quot;serialqueue&quot;, DISPATCH_QUEUE_SERIAL);</span><br><span class="line">    // 串行队列 同步执行</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">            NSLog(@&quot;%@&quot;,[NSThread currentThread]);</span><br><span class="line">            NSLog(@&quot;并发队列异步执行&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    NSLog(@&quot;main queue go on&quot;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>main queue 执行第一个nslog </li>
-</ol>
-<ol>
-<li>dispatch_sync将block放到queue中，因为queue是一个串行队列，所以等queue中以前的任务执行完后执行该block中的任务</li>
-</ol>
-<ol>
-<li>main queue等block中的任务执行完成继续向下执行</li>
-</ol>
+<p>1 main queue 执行第一个nslog </p>
+<p>2 dispatch_sync将block放到queue中，因为queue是一个串行队列，所以等queue中以前的任务执行完后执行该block中的任务</p>
+<p>3 main queue等block中的任务执行完成继续向下执行</p>
 <hr>
 <ul>
 <li><h3 id="同步执行，并行队列"><a href="#同步执行，并行队列" class="headerlink" title="同步执行，并行队列"></a>同步执行，并行队列</h3></li>
 </ul>
-<pre><code>与上面一种情况相比，该情况block中的任务在queue中不会再等待queue中前面任务完成再执行，而是queue拿到block就会执行
-
-main queue仍然需要等待block执行完成再执行
-</code></pre><ul>
+<p>与上面一种情况相比，该情况block中的任务在queue中不会再等待queue中前面任务完成再执行，而是queue拿到block就会执行</p>
+<p>main queue仍然需要等待block执行完成再执行</p>
+<ul>
 <li><h3 id="异步执行，主队列"><a href="#异步执行，主队列" class="headerlink" title="异步执行，主队列"></a>异步执行，主队列</h3></li>
 </ul>
-<pre><code>此情况下的结果应该为block放到main queue最后执行
-</code></pre><hr>
-<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h3 id="队列的获取"><a href="#队列的获取" class="headerlink" title="队列的获取"></a>队列的获取</h3><ol>
-<li>main Queue</li>
-</ol>
+<p>此情况下的结果应该为block放到main queue最后执行</p>
+<hr>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h3 id="队列的获取"><a href="#队列的获取" class="headerlink" title="队列的获取"></a>队列的获取</h3><p>1 main Queue</p>
 <pre><code>放到主队列的任务会放入主线程执行
-</code></pre><ol>
-<li>系统提供四个全局并行队列</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</span><br><span class="line">dispatch_queue_t lowQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);</span><br><span class="line">dispatch_queue_t highQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);</span><br><span class="line">dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>自己创建队列</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dispatch_queue_t queue = dispatch_queue_create(&lt;#const char *label#&gt;, &lt;#dispatch_queue_attr_t attr#&gt;)</span><br></pre></td></tr></table></figure>
+</code></pre><p>2 系统提供四个全局并行队列</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">dispatch_queue_t</span> defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_queue_t</span> lowQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_queue_t</span> highQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_queue_t</span> backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>3 自己创建队列</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(&lt;<span class="meta">#const char *label#&gt;, <span class="meta-string">&lt;#dispatch_queue_attr_t attr#&gt;</span>)</span></span><br></pre></td></tr></table></figure>
 <p>第一个参数是队列的名称</p>
 <p>第二个参数是队列的一些属性(串行还是并行) DISPATCH_QUEUE_CONCURRENT|DISPATCH_QUEUE_SERIAL</p>
-<p>¡</p>
 
 
                 

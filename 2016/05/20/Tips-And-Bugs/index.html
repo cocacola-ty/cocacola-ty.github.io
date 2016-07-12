@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Tips And Bugs"/>
+        <meta property="og:title" content="Bugs"/>
     
 
     <!--Open Graph Description-->
@@ -46,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>Tips And Bugs - Dev_Ty&#39;s Blog</title>
+    <title>Bugs - Dev_Ty&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -136,7 +136,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Tips And Bugs</h1>
+                    <h1>Bugs</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
@@ -163,53 +163,48 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h3 id="出现Duplicate-Symbol链接错"><a href="#出现Duplicate-Symbol链接错" class="headerlink" title="出现Duplicate Symbol链接错"></a>出现Duplicate Symbol链接错</h3><ol>
-<li>可能该文件被引入两次，Targets的Build Phase设置项里，查看Complie Sources这一项，看看出现问题的类是不是有重复的，用文件名过滤也比较容易发现。这种问题一般也是多人协作开发时，project文件冲突导致的。发现这种问题，只要删除就可以了。不过有可能删除其中一个文件时，重复文件会自动全部删除，所以还需要单独添加一下。</li>
+<li><p>可能该文件被引入两次，Targets的Build Phase设置项里，查看Complie Sources这一项，看看出现问题的类是不是有重复的，用文件名过滤也比较容易发现。这种问题一般也是多人协作开发时，project文件冲突导致的。发现这种问题，只要删除就可以了。不过有可能删除其中一个文件时，重复文件会自动全部删除，所以还需要单独添加一下。</p>
+</li>
+<li><p>出现问题的类是不是import .m文件</p>
+</li>
+<li><p>是不是第三方库中有文件和该类同名</p>
+</li>
 </ol>
-<ol>
-<li>出现问题的类是不是import .m文件</li>
-</ol>
-<ol>
-<li>是不是第三方库中有文件和该类同名</li>
-</ol>
+<hr>
 <h3 id="webview进入didFailLoadWithError"><a href="#webview进入didFailLoadWithError" class="headerlink" title="webview进入didFailLoadWithError"></a>webview进入didFailLoadWithError</h3><p>error.code == -999 </p>
 <p>一个页面没有被完全加载之前收到下一个请求</p>
 <p>可以直接return该错误尝试解决</p>
-<h3 id="加载xib-转换为UIView"><a href="#加载xib-转换为UIView" class="headerlink" title="加载xib 转换为UIView"></a>加载xib 转换为UIView</h3><ul>
-<li>UINib加载</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UINib *nib = [UINib nibWithNibName:@&quot;XLStockOrdersSectionHeader&quot; bundle:[NSBundle mainBundle]];</span><br><span class="line">UIView *header = (UIView *)[nib instantiateWithOwner:nil options:nil].firstObject;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>NSBundle加载</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">UIView *header = (UIView *)[[NSBundle mainBundle] loadNibNamed:@&quot;XLStockOrdersSectionHeader&quot; owner:nil options:nil].firstObject;</span><br></pre></td></tr></table></figure>
-<h5 id="UINib-与-NSBundle"><a href="#UINib-与-NSBundle" class="headerlink" title="UINib 与 NSBundle"></a>UINib 与 NSBundle</h5><p>NSBundle加载每次都是从本地读取xib到内存中</p>
-<p>UINib加载xib之后会缓存在内存中，当再次需要改xib时从内存中读取</p>
+<hr>
 <h3 id="translatesAutoresizingMaskIntoConstraints"><a href="#translatesAutoresizingMaskIntoConstraints" class="headerlink" title="translatesAutoresizingMaskIntoConstraints"></a>translatesAutoresizingMaskIntoConstraints</h3><ol>
 <li><p>缺少约束，约束冲突</p>
 </li>
 <li><p>少设置frame</p>
 </li>
 </ol>
-<h3 id="presentViewController"><a href="#presentViewController" class="headerlink" title="presentViewController"></a>presentViewController</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">TestViewController *testVC = [[TestViewController alloc] init];</span><br><span class="line">UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:testVC];</span><br><span class="line">[self presentViewController:nav animated:YES completion:nil];</span><br></pre></td></tr></table></figure>
+<hr>
 <h3 id="出现访问僵尸对象问题"><a href="#出现访问僵尸对象问题" class="headerlink" title="出现访问僵尸对象问题"></a>出现访问僵尸对象问题</h3><ol>
 <li><p>查看dealloc方法是否进行提前释放</p>
 </li>
 <li><p>查看dealloc方法调用时间</p>
 </li>
 </ol>
+<hr>
 <h3 id="images-xcassests"><a href="#images-xcassests" class="headerlink" title="images.xcassests"></a>images.xcassests</h3><ul>
 <li><p>只支持png格式图片</p>
 </li>
 <li><p>images.xcassets中图片只能有 imagenamed:方法调取</p>
 </li>
 </ul>
+<hr>
 <h3 id="通过在view上添加一个layer来实现动画，出现动画不还原"><a href="#通过在view上添加一个layer来实现动画，出现动画不还原" class="headerlink" title="通过在view上添加一个layer来实现动画，出现动画不还原"></a>通过在view上添加一个layer来实现动画，出现动画不还原</h3><pre><code>* 确保添加的是一个layer，不要重复一直添加layer，会覆盖。通过懒加载解决
-</code></pre><h3 id="多线程会导致的问题"><a href="#多线程会导致的问题" class="headerlink" title="多线程会导致的问题"></a>多线程会导致的问题</h3><ol>
+</code></pre><hr>
+<h3 id="多线程会导致的问题"><a href="#多线程会导致的问题" class="headerlink" title="多线程会导致的问题"></a>多线程会导致的问题</h3><ol>
 <li><p>开启子线程引起的内存开销，默认主线程1M，子线程512k</p>
 </li>
 <li><p>多线程之间由于网络请求时间差引发的问题</p>
 </li>
 </ol>
+<hr>
 <h3 id="加载xib时报错"><a href="#加载xib时报错" class="headerlink" title="加载xib时报错"></a>加载xib时报错</h3><p>libc++abi.dylib:terminate_handler unexpectedly threw an exception</p>
 <p>NSScanner: nil string argument</p>
 <ol>
@@ -218,45 +213,10 @@
 <li><p>检查是否有失效的连线！！ .m/.h 中已经删掉连线出来的控件，但是xib中未删除关联！！</p>
 </li>
 </ol>
-<h3 id="1-webview加载网页，点击网页上的按钮进行从webview跳转到其他页面，发生闪退"><a href="#1-webview加载网页，点击网页上的按钮进行从webview跳转到其他页面，发生闪退" class="headerlink" title="1. webview加载网页，点击网页上的按钮进行从webview跳转到其他页面，发生闪退"></a>1. webview加载网页，点击网页上的按钮进行从webview跳转到其他页面，发生闪退</h3><ul>
-<li>原因 </li>
-</ul>
-<p>当webview加载网页时由于网页内容过大还未加载完成，而此时点击按钮进行跳转，webview所在controller被销毁，webview被置为nil。而此时返回网页内容仍会寻找webview，出现访问僵尸对象(已经释放的webview)的情况，导致崩溃</p>
-<ul>
-<li>解决</li>
-</ul>
-<p>在dealloc方法中 [webview stopLoading]; webview = nil;</p>
-<h3 id="2-点击关注商品按钮，按钮状态不对应"><a href="#2-点击关注商品按钮，按钮状态不对应" class="headerlink" title="2. 点击关注商品按钮，按钮状态不对应"></a>2. 点击关注商品按钮，按钮状态不对应</h3><ul>
-<li>原因</li>
-</ul>
-<p>当点击关注商品按钮时首先发送一个关注商品通知，当获取到通知后去发送请求，在请求完成后的回调函数中将关注的商品id写入到本地。</p>
-<p>而按钮状态的刷新是在点击之后就刷新，并且状态刷新是根据本地保存的关注商品列表查找，而此时请求尚未完成，本地数据未刷新。所以出现状态不一致情况。</p>
-<ul>
-<li>解决</li>
-</ul>
-<p>点击按钮之后立即更改按钮状态，不去查找本地数据该商品是否在关注列表。然后去发送通知，发送请求</p>
-<h3 id="3-加载xib时报错"><a href="#3-加载xib时报错" class="headerlink" title="3. 加载xib时报错"></a>3. 加载xib时报错</h3><p>libc++abi.dylib:terminate_handler unexpectedly threw an exception</p>
-<p>NSScanner: nil string argument</p>
-<ol>
-<li><p>检查约束是否有冲突约束</p>
-</li>
-<li><p>检查是否有失效的连线！！ .m/.h 中已经删掉连线出来的控件，但是xib中未删除关联！！</p>
-</li>
-</ol>
-<h3 id="4-提示-translatesAutoresizingMaskIntoConstraints"><a href="#4-提示-translatesAutoresizingMaskIntoConstraints" class="headerlink" title="4. 提示 translatesAutoresizingMaskIntoConstraints"></a>4. 提示 translatesAutoresizingMaskIntoConstraints</h3><ol>
-<li><p>缺少约束，约束冲突</p>
-</li>
-<li><p>少设置frame</p>
-</li>
-</ol>
-<h3 id="5-发送网络请求出现crash情况的可能原因"><a href="#5-发送网络请求出现crash情况的可能原因" class="headerlink" title="5. 发送网络请求出现crash情况的可能原因"></a>5. 发送网络请求出现crash情况的可能原因</h3><p>在当前界面发送网络请求，在该请求还在飞着的时候，从该界面pop出去或者其他跳转导致控制器销毁的情况，当请求响应回来的时候该界面已经销毁，出现访问僵尸对象。</p>
-<p>该情况的解决</p>
-<ol>
-<li><p>当发起网络请求的时候弹出网络等待遮罩，在网络请求回来之前禁止进行其他操作</p>
-</li>
-<li><p>在控制器的销毁之前调用网络请求基类中的取消请求方法，取消已经发起的网络请求。这需要网络层设计的时候提供网络取消方法</p>
-</li>
-</ol>
+<hr>
+<h3 id="下载图片时线程阻塞"><a href="#下载图片时线程阻塞" class="headerlink" title="下载图片时线程阻塞"></a>下载图片时线程阻塞</h3><p>dataWithContentsOfURL方法是同步方法，当图片较大或网络较差时 该方法阻塞后面其他代码会无法执行</p>
+<hr>
+<h3 id="调试时po不打印对象信息"><a href="#调试时po不打印对象信息" class="headerlink" title="调试时po不打印对象信息"></a>调试时po不打印对象信息</h3><p>将项目的scheme 改为Debug，release模式下不现实参数值</p>
 
 
                 

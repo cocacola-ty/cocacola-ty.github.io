@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="bbbb">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="TY">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS下面向切面编程-Method Swizzle使用"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="bbbb" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Dev_Ty&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://yoursite.comundefined"/>
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS下面向切面编程-Method Swizzle使用 - Dev_Ty&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TY's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cocacola-ty">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>iOS下面向切面编程-Method Swizzle使用</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-07-12
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="iOS的AOP面向切面编程-–-Method-Swizzling"><a href="#iOS的AOP面向切面编程-–-Method-Swizzling" class="headerlink" title="iOS的AOP面向切面编程 – Method Swizzling"></a>iOS的AOP面向切面编程 – Method Swizzling</h2><p>使用场景：</p>
+<p>比如我们要对每个页面进行日志记录，当一个ViewController显示的时候就向服务器发起一次请求，记录当前显示的界面，当从该界面离开时再发起一次请求，记录该界面的离开</p>
+<p>实现方案</p>
+<h3 id="1-从最简单的开始"><a href="#1-从最简单的开始" class="headerlink" title="1. 从最简单的开始"></a>1. 从最简单的开始</h3><p>在所有的ViewController的viewWillAppear和viewWillDisappear方法中添加发起请求的代码，如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)viewWillAppear &#123;</span><br><span class="line"></span><br><span class="line">     [super viewWillAppear];</span><br><span class="line"></span><br><span class="line">      [self sendLog]; // 向服务器发送记录日志请求的方法</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void) viewWillDisappear &#123;</span><br><span class="line"></span><br><span class="line">    [super viewWillDisapear];</span><br><span class="line"></span><br><span class="line">    [self sendLog];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方案下整个项目中的所有ViewController中的viewWillAppear和viewWillDisappear方法都要添加这样的代码，并且该代码与主业务逻辑并无关联。一旦需要进行更改要对所有的ViewController进行更改，维护性太低。</p>
+<h3 id="2-改进"><a href="#2-改进" class="headerlink" title="2. 改进"></a>2. 改进</h3><p>既然都是在ViewController中，那么让所有ViewController都继承同一基类，在基类中实现这两个方法。相比如上已经很大程度解耦合。</p>
+<p>但是该方式下，所有的ViewController都要继承该基类，并且显示调用父类的方法</p>
+<p>如果当前项目已经存在一部分的ViewController，改动起来仍然是较大</p>
+<h3 id="3-Method-Swizzling"><a href="#3-Method-Swizzling" class="headerlink" title="3. Method Swizzling"></a>3. Method Swizzling</h3><p>如何在源代码不需要进行任何改动的情况下实现该问题的解决</p>
+<p>Method Swizzling技术，即我们可以通过runtime机制动态的替换方法的实现</p>
+<p>Objective-C中每个类都有一个Dispatch Table(分发表)，将方法的名字(SEL)和方法的实现(IMP,指向C函数的指针)一一对应。Swizzle其实就是在运行时在Dispatch Table做一点改动，让这个方法的名字(SEL)对应到另一个IMP</p>
+<p><strong>选择器 SEL </strong></p>
+<p>选择器用于表示一个方法在运行时的名字，即该方法的唯一标识。</p>
+<p><strong>方法 Method</strong></p>
+<p>代表类定义中方法的类型。</p>
+<p>是一个objc_method结构体指针，结构体中有方法的名称，指向方法实现的指针，描述参数和返回类型的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">typedef struct objc_method *Method;</span><br><span class="line"></span><br><span class="line"> struct objc_method &#123;</span><br><span class="line"></span><br><span class="line"> SEL method_name;  // 方法名称</span><br><span class="line"></span><br><span class="line"> char *method_typesE; // 参数和返回类型的描述字符串</span><br><span class="line"></span><br><span class="line"> IMP method_imp; // 指向方法的具体的实现的指针</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>实现 IMP</strong></p>
+<p>这种类型是实现某个方法的函数开始位置的指针，<strong>即一个指向方法实现的指针。</strong></p>
+<p>上述几个概念之间的关系：一个类Class都有一张调度表dispatch table，用于在运行时解析消息；调度表中的每一行都是一个方法Method，这一行中有两个字段，其中一个字段是key，该值为一个唯一的名字–选择器，另一个字段为选择器所对应的一个实现IMP。</p>
+<h3 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"UIViewController+swizzling.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">swizzling</span>)</span></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> *  在UIViewController的分类中实现该方法，项目中所有的ViewController都会进入到这里执行</span><br><span class="line"> *  该方法会最早被执行，所有在该方法内替换掉方法的实现</span><br><span class="line"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>) load &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取原来的viewWillAppear方法的'指针'</span></span><br><span class="line">    SEL originSel = <span class="keyword">@selector</span>(viewWillAppear:);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取自定义的viewWillAppear方法的'指针'</span></span><br><span class="line">    SEL swizSel = <span class="keyword">@selector</span>(ty_viewWillAppear:);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将两个方法的实现内容进行交换</span></span><br><span class="line">    [<span class="built_in">UIViewController</span> swizzleMethods:[<span class="keyword">self</span> class] originalSelector:originSel swizzledSelector:swizSel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>) swizzleMethods:(Class)class originalSelector:(SEL) originalSel swizzledSelector:(SEL)swizSel &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取当前对象的viewWillAppear方法</span></span><br><span class="line">    Method originalMethod = class_getInstanceMethod(class, originalSel);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取当前对象的自定义的viewWillAppear方法</span></span><br><span class="line">    Method swizzlMethod = class_getInstanceMethod(class, swizSel);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 为当前类添加originalSel(viewWillAppear)方法，并且将该方法指向swizzlMethod方法的实现。如果当前类中已经有该方法，返回NO</span></span><br><span class="line">    <span class="comment">// 因为如果当前类中如果没有实现viewWillAppear方法，那么class_getInstanceMethod获取就是父类的viewWillAppear，这并不是想要进行替换的。所以先尝试进行为当前类添加viewWillAppear方法，如果已经存在，直接去exchangeImplementations交换方法实现</span></span><br><span class="line">    <span class="built_in">BOOL</span> didAddMethod = class_addMethod(class, originalSel, method_getImplementation(swizzlMethod), method_getTypeEncoding(swizzlMethod));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (didAddMethod) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将swizSel指向originalMethod方法的实现</span></span><br><span class="line">        class_replaceMethod(class, swizSel, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 如果originalSel原来已经存在，直接交换originalMethod 和 swizzlMethod的实现</span></span><br><span class="line">        method_exchangeImplementations(originalMethod, swizzlMethod);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自己的viewWillAppear方法</span></span><br><span class="line">- (<span class="keyword">void</span>) ty_viewWillAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"日志记录"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 此时ty_viewWillAppear方法名已经指向了viewWillAppear的方法实现</span></span><br><span class="line">    [<span class="keyword">self</span> ty_viewWillAppear:animated];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>通过Method Swizzle技术实现iOS下的面向切面编程，如同Python的装饰器模式、或JavaEE spring框架等。通过这样可以对工程进行一个切面的过滤拦截，并且不会干扰到主要的业务逻辑。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cocacola-ty" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>
