@@ -196,8 +196,10 @@
 </li>
 </ul>
 <hr>
-<h3 id="通过在view上添加一个layer来实现动画，出现动画不还原"><a href="#通过在view上添加一个layer来实现动画，出现动画不还原" class="headerlink" title="通过在view上添加一个layer来实现动画，出现动画不还原"></a>通过在view上添加一个layer来实现动画，出现动画不还原</h3><pre><code>* 确保添加的是一个layer，不要重复一直添加layer，会覆盖。通过懒加载解决
-</code></pre><hr>
+<h3 id="通过在view上添加一个layer来实现动画，出现动画不还原"><a href="#通过在view上添加一个layer来实现动画，出现动画不还原" class="headerlink" title="通过在view上添加一个layer来实现动画，出现动画不还原"></a>通过在view上添加一个layer来实现动画，出现动画不还原</h3><ul>
+<li>确保添加的是一个layer，不要重复一直添加layer，会覆盖。通过懒加载解决</li>
+</ul>
+<hr>
 <h3 id="多线程会导致的问题"><a href="#多线程会导致的问题" class="headerlink" title="多线程会导致的问题"></a>多线程会导致的问题</h3><ol>
 <li><p>开启子线程引起的内存开销，默认主线程1M，子线程512k</p>
 </li>
@@ -217,6 +219,31 @@
 <h3 id="下载图片时线程阻塞"><a href="#下载图片时线程阻塞" class="headerlink" title="下载图片时线程阻塞"></a>下载图片时线程阻塞</h3><p>dataWithContentsOfURL方法是同步方法，当图片较大或网络较差时 该方法阻塞后面其他代码会无法执行</p>
 <hr>
 <h3 id="调试时po不打印对象信息"><a href="#调试时po不打印对象信息" class="headerlink" title="调试时po不打印对象信息"></a>调试时po不打印对象信息</h3><p>将项目的scheme 改为Debug，release模式下不现实参数值</p>
+<hr>
+<h3 id="删除MainStoryBoard之后的报错"><a href="#删除MainStoryBoard之后的报错" class="headerlink" title="删除MainStoryBoard之后的报错"></a>删除MainStoryBoard之后的报错</h3><p>MainStoryBoard删除之后要同时需要在info.plist中删除Main StoryBoard Base File Name 这一行<br>并且在didFinishLaunching中新建一个window，否则系统是没有window的。</p>
+<hr>
+<h3 id="控制器的present和push"><a href="#控制器的present和push" class="headerlink" title="控制器的present和push"></a>控制器的present和push</h3><p>如果当前控制器是present出来的，从当前控制器继续向下跳转时不要用push，因为它会从当前控制器的上一个控制器去push。</p>
+<hr>
+<h3 id="一个控制器中多个collectionView时，有的collectionView不显示Cell"><a href="#一个控制器中多个collectionView时，有的collectionView不显示Cell" class="headerlink" title="一个控制器中多个collectionView时，有的collectionView不显示Cell"></a>一个控制器中多个collectionView时，有的collectionView不显示Cell</h3><p>collectionview里面是scrollview，他有偏移，偏移出了collectionView导致他的cell方法不调用。只要设置控制器不自动偏移即可。</p>
+<p>self.automacticallyAdjustsScrollViewInsets = NO</p>
+<hr>
+<h3 id="tableView运行崩溃，提示-configureCellForDisplay-forIndexPath"><a href="#tableView运行崩溃，提示-configureCellForDisplay-forIndexPath" class="headerlink" title="tableView运行崩溃，提示:_configureCellForDisplay:forIndexPath"></a>tableView运行崩溃，提示:_configureCellForDisplay:forIndexPath</h3><ol>
+<li><p>检查是否设置重用标识符</p>
+</li>
+<li><p>检查获取的cell是否为nil</p>
+</li>
+</ol>
+<hr>
+<h3 id="h文件中报错-unterminated-conditional-directive"><a href="#h文件中报错-unterminated-conditional-directive" class="headerlink" title=".h文件中报错 unterminated conditional directive"></a>.h文件中报错 unterminated conditional directive</h3><ul>
+<li><p>此报错原因是因为条件编译缺少结束 </p>
+</li>
+<li><p>检查是否缺少#ifdef 是否缺少 #endif</p>
+</li>
+</ul>
+<hr>
+<h3 id="控制台输出：Class-PLBuildVersion-is-implemented-in-both-frameworks"><a href="#控制台输出：Class-PLBuildVersion-is-implemented-in-both-frameworks" class="headerlink" title="控制台输出：Class PLBuildVersion is implemented in both frameworks"></a>控制台输出：Class PLBuildVersion is implemented in both frameworks</h3><p>当工程中使用到了PhotoKit，当运行时，可能会在控制台出现该提示。因为PLBuildVersion在PhotoKit和Assert</p>
+<hr>
+<h3 id="关于storyboard中tableview点击cell不走segue的问题"><a href="#关于storyboard中tableview点击cell不走segue的问题" class="headerlink" title="关于storyboard中tableview点击cell不走segue的问题"></a>关于storyboard中tableview点击cell不走segue的问题</h3><p>如果直接拉出来一个tableviewcontroller上面的cell是默认提供的，该cell的重用标识符为空，当从cell连线到下一个控制器时是该标识符为空的cell跳转到下一个控制器。并不是我们创建的cell。所以当运行时点击我们创建的cell不会跳转。<br>解决方法，设置默认的cell的标识符</p>
 
 
                 

@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Dev_Ty&#39;s Blog"/>
+        <meta property="og:title" content="iOS为数组添加KVO监听"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -46,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>page - Archiv: 2016 - Dev_Ty&#39;s Blog</title>
+    <title>iOS为数组添加KVO监听 - Dev_Ty&#39;s Blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -128,143 +128,64 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016</h1>
+                <div class="post-heading">
+                    <h1>iOS为数组添加KVO监听</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-09-28
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/05/20/控制器视图加载/">
-        <h1 class="post-title archive">
-            控制器视图加载
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>当需要监听数组的变化最好的方式就是使用KVO观察者。下面来说明如何给数组添加KVO</p>
+<h5 id="准备：当前的数组为myArray"><a href="#准备：当前的数组为myArray" class="headerlink" title="准备：当前的数组为myArray"></a>准备：当前的数组为myArray</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *myArray;</span><br></pre></td></tr></table></figure>
+<h5 id="1-为该数组添加观察者"><a href="#1-为该数组添加观察者" class="headerlink" title="1 为该数组添加观察者"></a>1 为该数组添加观察者</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self addObserver:self forKeyPath:@&quot;myArray&quot; options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];</span><br></pre></td></tr></table></figure>
+<h5 id="2-实现观察者方法"><a href="#2-实现观察者方法" class="headerlink" title="2 实现观察者方法"></a>2 实现观察者方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSString *,id&gt; *)change context:(void *)context&#123;</span><br><span class="line">    // 处理变化操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-重写两个方法"><a href="#3-重写两个方法" class="headerlink" title="3 重写两个方法"></a>3 重写两个方法</h5><p>方法名中的MyArray替换为所监听数组的数组名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)insertObject:(id)object inMyArrayAtIndex:(NSUInteger)index &#123;</span><br><span class="line">    [self.productLabelStr insertObject:object atIndex:index];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)removeObjectFromMyArrayAtIndex:(NSUInteger)index &#123;</span><br><span class="line">    [self.productLabelStr removeObjectAtIndex:index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4-添加数组元素测试"><a href="#4-添加数组元素测试" class="headerlink" title="4 添加数组元素测试"></a>4 添加数组元素测试</h5><p>当数组通过KVO监听时只有通过如下方式添加或插入元素，数组的变化才会被监听到</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="keyword">self</span>.homePageView mutableArrayValueForKey:<span class="string">@"myArray"</span>] insertObject:<span class="string">@"adfas"</span> atIndex:<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2016/05/20/XCode命令行打包/">
-        <h1 class="post-title archive">
-            XCode命令行打包
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2016/05/20/Core-Image为图片添加滤镜/">
-        <h1 class="post-title archive">
-            Core Image为图片添加滤镜
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/20/GCD基本认识/">
-        <h1 class="post-title archive">
-            GCD基本认识
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/20/UISearchDisplayController与谓词搜索基本使用/">
-        <h1 class="post-title archive">
-            UISearchDisplayController与谓词搜索基本使用
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/20/iOS视图优化/">
-        <h1 class="post-title archive">
-            iOS优化技巧
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/20/Target-Action方式下的传值/">
-        <h1 class="post-title archive">
-            Target-Action方式下的传值
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/01/09/UIWebView下处理长按事件/">
-        <h1 class="post-title archive">
-            UIWebView下处理长按事件
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-01-09
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-        <li class="previous"><a href="/archives/2016/">&larr;  Nächste Seite</a></li>
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
