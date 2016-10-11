@@ -170,6 +170,11 @@
 <h3 id="3-关于selectItemAtIndexPath方法"><a href="#3-关于selectItemAtIndexPath方法" class="headerlink" title="3 关于selectItemAtIndexPath方法"></a>3 关于<em>selectItemAtIndexPath</em>方法</h3><p>调用该方法后会选中指定的item，但是不会去执行代理方法中的<code>didSelectItemAtIndexPath</code>代理方法，在苹果的文档中有说明</p>
 <p>如果想要执行代理中的<code>didSelectItemAtIndexPath</code>可以直接调用该方法来执行 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self collectionView:self.collectionView didSelectItemAtIndexPath:indexpath]</span><br></pre></td></tr></table></figure>
+<h3 id="4-UIDevice-currentDevice-userInterfaceIdiom-判断错误"><a href="#4-UIDevice-currentDevice-userInterfaceIdiom-判断错误" class="headerlink" title="4 [[UIDevice currentDevice] userInterfaceIdiom] 判断错误"></a>4 [[UIDevice currentDevice] userInterfaceIdiom] 判断错误</h3><p>当需要判断当前app是否运行在iPhone或iPad时，通过<code>[[UIDevice currentDevice] userInterfaceIdiom] == iPhone/iPad</code>来进行判断。如果出现判断错误的情况，请检查下面的设置<br>PROJECT -&gt; Build Settings -&gt; Deployment -&gt; Targeted Device Family -&gt; 1/2</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1284329-ba9c70e0dec82625.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>1 表示当前应用只运行在iPhone上面<br>2 表示当前应用只运行在iPad上面<br>1,2 表示当前应用可以运行在iPhone和IPad上面</p>
+<p>当该选项选择1的时候 ,即使运行在iPad上面 通过<code>[[UIDevice currentDevice] userInterfaceIdiom]</code>方法获取的值依旧是iPhone</p>
+
 
                 
             </div>
