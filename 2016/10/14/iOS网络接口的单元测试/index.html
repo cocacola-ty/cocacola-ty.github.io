@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="bbbb">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="TY">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS网络接口的单元测试"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="bbbb" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Dev_Ty&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://yoursite.comundefined"/>
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS网络接口的单元测试 - Dev_Ty&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TY's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cocacola-ty">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>iOS网络接口的单元测试</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-10-14
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="网络请求的单元测试与普通单元测试的区别"><a href="#网络请求的单元测试与普通单元测试的区别" class="headerlink" title="网络请求的单元测试与普通单元测试的区别"></a>网络请求的单元测试与普通单元测试的区别</h3><p>网络请求为异步方式进行，发起请求之后就继续向下执行，无论请求是否成功，单元测试都会完成</p>
+<h3 id="单元测试中对于异步进行的方法的处理"><a href="#单元测试中对于异步进行的方法的处理" class="headerlink" title="单元测试中对于异步进行的方法的处理"></a>单元测试中对于异步进行的方法的处理</h3><p>在单元测试中遇到异步方式时，执行完异步方法后阻塞当前线程，等异步方法执行完成后，再向下执行，校验返回数据</p>
+<h3 id="Demo-如何阻塞线程，等待数据返回"><a href="#Demo-如何阻塞线程，等待数据返回" class="headerlink" title="Demo 如何阻塞线程，等待数据返回"></a>Demo 如何阻塞线程，等待数据返回</h3><h5 id="1-声明一个XCTestExpectation对象"><a href="#1-声明一个XCTestExpectation对象" class="headerlink" title="1 声明一个XCTestExpectation对象"></a>1 声明一个XCTestExpectation对象</h5><h5 id="2-强引用该XCTestExpectation对象。（用于在请求成功的回调方法中使用该对象触发指定方法）"><a href="#2-强引用该XCTestExpectation对象。（用于在请求成功的回调方法中使用该对象触发指定方法）" class="headerlink" title="2 强引用该XCTestExpectation对象。（用于在请求成功的回调方法中使用该对象触发指定方法）"></a>2 强引用该XCTestExpectation对象。（用于在请求成功的回调方法中使用该对象触发指定方法）</h5><h5 id="3-执行异步网络请求方法"><a href="#3-执行异步网络请求方法" class="headerlink" title="3 执行异步网络请求方法"></a>3 执行异步网络请求方法</h5><h5 id="4-等待数据成功返回"><a href="#4-等待数据成功返回" class="headerlink" title="4 等待数据成功返回"></a>4 等待数据成功返回</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">#import &lt;XCTest/XCTest.h&gt;</span><br><span class="line"></span><br><span class="line">#import &quot;NSObject+YPApiService.h&quot;</span><br><span class="line">#import &quot;YPApiServiceKit.h&quot;</span><br><span class="line"></span><br><span class="line">@interface YouPiaoTests : XCTestCase&lt;YPApiServiceKitDataSource&gt;</span><br><span class="line">@property (nonatomic,strong) XCTestExpectation *e;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation YouPiaoTests</span><br><span class="line"></span><br><span class="line">- (void) testIndexList &#123;</span><br><span class="line">    </span><br><span class="line">    // 1 声明XCTestExpectation对象</span><br><span class="line">    XCTestExpectation *e = [self expectationWithDescription:@&quot;des&quot;];</span><br><span class="line">    </span><br><span class="line">     // 2 对该对象强引用 </span><br><span class="line">    self.e = e;</span><br><span class="line">    </span><br><span class="line">     // 3 发起网络请求</span><br><span class="line">    [self api_Post_IndexList];</span><br><span class="line">    </span><br><span class="line">    // 4 等待 XCTestExpectation对象触发fulfill方法，或超时之后再向下执行</span><br><span class="line">    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;,error);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 网络请求响应成功的回调方法 </span><br><span class="line">- (void)serverResponseSuccess:(YPBaseModel *)responseModel &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;,responseModel);</span><br><span class="line">    [self.e fulfill];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h3 id="相关方法"><a href="#相关方法" class="headerlink" title="相关方法"></a>相关方法</h3><p>通过发送通知来触发继续执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">声明</span><br><span class="line">self expectationForNotification:@&quot;RSBaseTest&quot; object:nil handler:nil];</span><br><span class="line">等待执行</span><br><span class="line">[self waitForExpectationsWithTimeout:30 handler:nil];&#125; while (0);</span><br><span class="line">发送通知</span><br><span class="line">[[NSNotificationCenter defaultCenter]postNotificationName:@&quot;RSBaseTest&quot; object:nil];</span><br></pre></td></tr></table></figure></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cocacola-ty" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>
