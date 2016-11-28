@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="bbbb">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="TY">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Git从本地库到远程库操作介绍"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="bbbb" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Dev_Ty&#39;s Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://yoursite.comundefined"/>
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Git从本地库到远程库操作介绍 - Dev_Ty&#39;s Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TY's Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cocacola-ty">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Git从本地库到远程库操作介绍</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-11-28
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="本地版本库的基本使用"><a href="#本地版本库的基本使用" class="headerlink" title="本地版本库的基本使用"></a>本地版本库的基本使用</h2><h3 id="1-创建版本库"><a href="#1-创建版本库" class="headerlink" title="1 创建版本库"></a>1 创建版本库</h3><p>首先先来创建一个目录，该目录该将作为工作目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir gitDemo</span><br></pre></td></tr></table></figure></p>
+<p>将该目录初始化为一个git库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<p>现在一个版本库创建完成。下面在该版本库中进行管理工作文件。</p>
+<h3 id="2-将工作文件收入版本控制"><a href="#2-将工作文件收入版本控制" class="headerlink" title="2 将工作文件收入版本控制"></a>2 将工作文件收入版本控制</h3><h4 id="2-1-添加工作文件"><a href="#2-1-添加工作文件" class="headerlink" title="2.1 添加工作文件"></a>2.1 添加工作文件</h4><p>现在目录中还是空的，首先来创建一个文件来作为工作文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello world&quot; &gt; file1.txt</span><br></pre></td></tr></table></figure></p>
+<p>现在工作目录中有了<code>file1.txt</code>文件。那么来查看一下该文件的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
+<p>命令行输出如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">On branch master:</span><br><span class="line">Untracked files:</span><br><span class="line">    file1.txt</span><br></pre></td></tr></table></figure></p>
+<p>第一行告诉我们当前处于master分支<br>第二行告诉我们下面的文件处于没有添加到版本控制管理中</p>
+<h4 id="2-2-将文件添加到版本库的暂存区中"><a href="#2-2-将文件添加到版本库的暂存区中" class="headerlink" title="2.2 将文件添加到版本库的暂存区中"></a>2.2 将文件添加到版本库的暂存区中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add file1.txt</span><br></pre></td></tr></table></figure>
+<p>通过该命令就将file1.txt添加到了版本库的<strong>暂存区</strong>中。</p>
+<h4 id="2-3-将文件交给版本库来管理"><a href="#2-3-将文件交给版本库来管理" class="headerlink" title="2.3 将文件交给版本库来管理"></a>2.3 将文件交给版本库来管理</h4><p>通过<code>git add</code>命令让版本库知道了有一个新文件添加了。但是这时候版本库还没有对该文件进行管理，因为这时候文件是在版本库的暂存区中。我们需要将文件提交到版本库中，才会对该文件进行管理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;commit message&quot;</span><br></pre></td></tr></table></figure>
+<p>到这里本地版本库的基本使用就已经完成了。</p>
+<h3 id="3-使用分支"><a href="#3-使用分支" class="headerlink" title="3 使用分支"></a>3 使用分支</h3><p>现在所有的操作都是在master分支上面进行的。来使用一下分支功能。</p>
+<p>情景：现在有功能正在开发，突然又有新功能需要开发。这样可以开一条分支来进行新功能的开发。这样保证不干扰现在的一半的开发。</p>
+<h4 id="3-1-先创建一条分支"><a href="#3-1-先创建一条分支" class="headerlink" title="3.1 先创建一条分支"></a>3.1 先创建一条分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch branch1</span><br></pre></td></tr></table></figure>
+<p>这样就创建了一条名为<code>branch1</code>的分支。不过这只是创建了一条分支，并不会自动切换到该分支上面。新功能的开发就在这条分支上面。<br>这条创建的分支branch1是根据当前所在的分支(master)创建的。</p>
+<h4 id="3-2-使用分支"><a href="#3-2-使用分支" class="headerlink" title="3.2 使用分支"></a>3.2 使用分支</h4><p>现在仍然在<code>master</code>分支上面。<br>当前工作目录中只有一个<code>file1.txt</code>文件。</p>
+<p>现在我们切换到新建立的分支上面去看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout branch1</span><br></pre></td></tr></table></figure></p>
+<p>再查看一下现在切换分支之后的的工作目录，仍然是只有一个<code>file1.txt</code>文件。</p>
+<p><strong>这是因为创建分支是基于当前所在分支的最新提交作为新分支的开始</strong>，也就是说当前分支的最新提交的状态就是新分支的起点。</p>
+<p>现在已经切换到了<code>branch1</code>分支上面。</p>
+<p>现在再添加一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;branch file&quot; &gt; branch1.txt</span><br></pre></td></tr></table></figure></p>
+<p>现在的工作目录中有两个文件。分别是<code>file1.txt</code>和<code>branch1.txt</code></p>
+<p>将<code>branch1.txt</code>提交给版本库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add branch1.txt</span><br><span class="line">git commit -m &quot;branch add file&quot;</span><br></pre></td></tr></table></figure>
+<p>这是<code>branch1</code>分支上有两个文件:<code>file1.txt</code>和<code>branch1.txt</code></p>
+<p>现在切换回<code>master</code>分支看一下情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>会发现此时工作目录中只有<code>file1.txt</code></p>
+<p>因为当切换分支后，工作目录会同时更改为该分支状态的目录。此时master分支中并没有branch1.txt文件，所以工作目录中只有master分支上面的<code>file1.txt</code>文件。</p>
+<p>分支上的操作是不会互相干扰的。<code>branch1.txt</code>文件是在<code>branch1</code>分支上面添加的，所以<code>master</code>分支上面是没有的。这样两条分支各自有一种工作状态。</p>
+<h3 id="4-合并"><a href="#4-合并" class="headerlink" title="4 合并"></a>4 合并</h3><p>上面创建了一条分支<code>branch1</code>用于开发一个单独的功能，此时该功能已经开发完成。<code>master</code>分支上面的功能也开发完成。由于分支之间是相互独立的，所以<code>branch1</code>分支上面的代码没有<code>master</code>上面开发的功能。同理<code>master</code>上面也没有<code>branch1</code>的功能。</p>
+<p>下面就通过合并来将这两个分支上的功能集成起来。我们把<code>branch1</code>的代码合并到<code>master</code>上来。</p>
+<p>现在的各分支情况是这样的</p>
+<ul>
+<li><p><code>master</code> : file1.txt</p>
+</li>
+<li><p><code>branch1</code>: branch1.txt、file1.txt</p>
+</li>
+</ul>
+<p>我们期望合并之后是这样的</p>
+<ul>
+<li><p><code>master</code> : file1.txt、branch1.txt</p>
+</li>
+<li><p><code>branch1</code>: branch1.txt、file1.txt</p>
+</li>
+</ul>
+<h4 id="4-1-首先我们需要切换到master分支"><a href="#4-1-首先我们需要切换到master分支" class="headerlink" title="4.1 首先我们需要切换到master分支"></a>4.1 首先我们需要切换到<code>master</code>分支</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-将branch1分支上面的代码合并到master"><a href="#4-2-将branch1分支上面的代码合并到master" class="headerlink" title="4.2 将branch1分支上面的代码合并到master"></a>4.2 将<code>branch1</code>分支上面的代码合并到<code>master</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge branch1</span><br></pre></td></tr></table></figure>
+<p>至此，本地的版本库操作基本流程就是这样。下面开始和远端库一起操作。</p>
+<hr>
+<h2 id="远端仓库的配合使用"><a href="#远端仓库的配合使用" class="headerlink" title="远端仓库的配合使用"></a>远端仓库的配合使用</h2><p>此时需要有一个远端仓库，如github等。<br>此处的远端库使用<code>https://github.com/cocacola-ty/TestRep.git</code></p>
+<h3 id="克隆远端仓库"><a href="#克隆远端仓库" class="headerlink" title="克隆远端仓库"></a>克隆远端仓库</h3><p>获取远端仓库的内容我们需要把远端仓库克隆到本地。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/cocacola-ty/TestRep.git</span><br></pre></td></tr></table></figure>
+<p>克隆下来之后本地会有一个和远端仓库内容<em>一样</em>的仓库。</p>
+<p>这里的一样是指仓库中的工程内容是一样的，一些版本库的私有配置如钩子等是不一样的。</p>
+<h4 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h4><ul>
+<li><p>远程仓库中的分支到克隆下来的本地版本库中成为远程跟踪分支。如远程的库中的<code>master</code>分支，在本地库中就成为了<code>origin/master</code>。这两条分支是关联的。</p>
+</li>
+<li><p>当克隆下来之后，本地库中会自动创建一条<code>master</code>分支并切换到该分支，该分支与远程库中的<code>master</code>的内容是一样的。</p>
+</li>
+<li><p>在本地所做的修改默认都是在本地的<code>master</code>分支上面的修改。</p>
+</li>
+</ul>
+<h3 id="拉取远程库中的更新"><a href="#拉取远程库中的更新" class="headerlink" title="拉取远程库中的更新"></a>拉取远程库中的更新</h3><p>在我们克隆了远程库之后又有其他人向远程库中提交了新功能。下面来获取远程库中的最新代码。</p>
+<p>获取远程库中的更新的命令如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch &lt;远程主机名&gt; &lt;分支名&gt;</span><br></pre></td></tr></table></figure></p>
+<p>因为本地的<code>origin/master</code>分支是与远程的<code>master</code>分支相关联的。所以可以使用下面的命令将远程库中<code>master</code>的更新同步到本地的<code>origin/master</code>分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master</span><br></pre></td></tr></table></figure>
+<p>这样本地的<code>origin/master</code>分支内容就和远程库中的<code>master</code>的内容一样了。 但是我们的主要开发工作是在本地的<code>master</code>上面，我们就要把本地的<code>master</code>分支内容也更新了。此时我们本地的<code>origin/master</code>就是最新内容，所以直接将<code>origin/master</code>内容合并到<code>master</code>就可以。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge origin/master</span><br></pre></td></tr></table></figure></p>
+<p>这样就完成了将远程库中的更新拉取到本地的开发中。</p>
+<h4 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a><code>git pull</code></h4><p>除了上面的命令还可以使用这个命令来获取更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull &lt;远程主机名&gt; &lt;分支名&gt;:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+<p>这个命令的作用是获取远程分支的指定分支的更新，并与本地指定分支进行合并。相当于执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git merge</span><br></pre></td></tr></table></figure></p>
+<p>如：我们将<code>origin</code>远程库中的<code>master</code>更新合并到本地的<code>master</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master:master</span><br></pre></td></tr></table></figure></p>
+<p>如果是直接与当前分支合并可以省略本地分支名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure></p>
+<h3 id="推送本地更新"><a href="#推送本地更新" class="headerlink" title="推送本地更新"></a>推送本地更新</h3><p>将本地版本库中新增的内容推到远程版本库中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push &lt;远程主机名&gt; &lt;分支名&gt;:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cocacola-ty" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>
